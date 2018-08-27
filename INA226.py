@@ -25,8 +25,6 @@ class INA226(object):
     self.status = False
     try:
       self.ina226.read_byte(self.INA226_ADDR)
-      #print("INA226 detected")
-      #ina226 = True
       #self.ina226.write_word_data(INA226_ADDR, INA226_REG_CONFIG, self.ina226.read_word_data(INA226_ADDR, INA226_REG_CONFIG) | 0x0080)
       self.ina226.write_word_data(self.INA226_ADDR, self.INA226_REG_CONFIG, self.INA226_CONFIG)
       self.ina226.write_word_data(self.INA226_ADDR, self.INA226_REG_CALIBRATION, self.INA226_CALIBRATION)
@@ -34,8 +32,9 @@ class INA226(object):
       #print("%04x" % self.ina226.read_word_data(INA226_ADDR, INA226_REG_CALIBRATION))
       self.status = True
     except IOError:
-      print("INA226 not detected")
-      #ina226 = False
+      #print("INA226 not detected")
+      self.status = False
+      pass
     return self.status
 	
   def busVoltage(self):
